@@ -21,8 +21,8 @@
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
         <org.springcloud.version>2022.0.3</org.springcloud.version>
-
     </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>

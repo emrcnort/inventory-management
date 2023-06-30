@@ -5,9 +5,5 @@ import com.inventorymanagement.commonservice.entity.Category;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CategoryMapper {
-    Category convertDtoToEntity(CategoryDto dto);
-
-    CategoryDto convertEntityToDto(Category entity);
-
+public interface CategoryMapper extends BaseMapper<Category, CategoryDto> {
 }
