@@ -1,4 +1,4 @@
-package com.inventorymanagement.commonservice.utils.mapper;
+package com.inventorymanagement.commonservice.mapper;
 
 import java.util.List;
 
