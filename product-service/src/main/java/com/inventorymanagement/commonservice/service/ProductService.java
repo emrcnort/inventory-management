@@ -6,6 +6,7 @@ import com.inventorymanagement.commonservice.exceptions.NotFoundException;
 import com.inventorymanagement.commonservice.model.PageableParams;
 import com.inventorymanagement.commonservice.repository.ProductRepository;
 import com.inventorymanagement.commonservice.utils.mapper.ProductMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,10 +29,12 @@ public class ProductService {
         return mapper.convertEntityListToDtoList(repository.findAllByCategoryId(categoryId, paging).getContent());
     }
 
+    @Transactional
     public ProductDto save(ProductDto product) {
         return mapper.convertEntityToDto(repository.save(mapper.convertDtoToEntity(product)));
     }
 
+    @Transactional
     public ProductDto update(Long id, ProductDto productDto) {
         Optional<Product> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
         Product productToUpdate = product.map(e -> {
@@ -43,5 +46,11 @@ public class ProductService {
             return e;
         }).get();
         return mapper.convertEntityToDto(repository.save(productToUpdate));
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Optional<Product> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
+        repository.deleteById(id);
     }
 }

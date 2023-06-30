@@ -11,6 +11,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="product-service" />
+        <module name="config-server" />
         <module name="common-service" />
       </profile>
     </annotationProcessing>
@@ -22,6 +23,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-service" options="-parameters" />
+      <module name="config-server" options="-parameters" />
+      <module name="parent-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="product-service (1)" options="-parameters" />
       <module name="product-service (2)" options="-parameters" />
