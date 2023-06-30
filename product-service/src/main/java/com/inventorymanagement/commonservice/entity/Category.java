@@ -3,14 +3,16 @@ package com.inventorymanagement.commonservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Entity
-public class Product {
-
+public class Category {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -19,11 +21,9 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "price")
-    private String price;
-    @Column(name = "stock_amount")
-    private Integer stockAmount;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> products = new ArrayList<>();
 }

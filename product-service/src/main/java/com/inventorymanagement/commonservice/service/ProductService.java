@@ -1,10 +1,13 @@
 package com.inventorymanagement.commonservice.service;
 
+import com.inventorymanagement.commonservice.dto.CategoryDto;
 import com.inventorymanagement.commonservice.dto.ProductDto;
+import com.inventorymanagement.commonservice.entity.Category;
 import com.inventorymanagement.commonservice.entity.Product;
 import com.inventorymanagement.commonservice.exceptions.NotFoundException;
 import com.inventorymanagement.commonservice.model.PageableParams;
 import com.inventorymanagement.commonservice.repository.ProductRepository;
+import com.inventorymanagement.commonservice.utils.mapper.CategoryMapper;
 import com.inventorymanagement.commonservice.utils.mapper.ProductMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +23,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
 
+    private final CategoryService categoryService;
+
     private final ProductRepository repository;
 
     private final ProductMapper mapper;
+
+    private final CategoryMapper categoryMapper;
 
     public List<ProductDto> findAllByCategoryId(PageableParams pageableParams, Long categoryId) {
         Pageable paging = PageRequest.of(pageableParams.getPage(), pageableParams.getPageSize(), Sort.by(pageableParams.getSortBy()));
@@ -41,7 +48,7 @@ public class ProductService {
             e.setDescription(productDto.getDescription());
             e.setName(productDto.getName());
             e.setPrice(productDto.getPrice());
-            e.setCategoryId(productDto.getCategoryId());
+            e.setCategory(this.getCategoryByCategoryId(productDto.getCategoryId()));
             e.setStockAmount(productDto.getStockAmount());
             return e;
         }).get();
@@ -51,6 +58,11 @@ public class ProductService {
     @Transactional
     public void delete(Long id) {
         Optional<Product> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
-        repository.deleteById(id);
+        repository.deleteById(product.get().getId());
+    }
+
+    private Category getCategoryByCategoryId(Long categoryId) {
+        CategoryDto categoryDto = categoryService.findById(categoryId);
+        return categoryMapper.convertDtoToEntity(categoryDto);
     }
 }
