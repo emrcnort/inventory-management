@@ -21,9 +21,26 @@
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
         <org.springcloud.version>2022.0.3</org.springcloud.version>
+        <org.springboot.devtools.version>3.1.0</org.springboot.devtools.version>
+        <org.springdoc.openapi.version>2.1.0</org.springdoc.openapi.version>
     </properties>
-    
+
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>${org.springboot.devtools.version}</version>
+            <optional>true</optional>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${org.springdoc.openapi.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
