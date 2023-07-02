@@ -45,11 +45,11 @@ public class ProductService {
     public ProductDto update(Long id, ProductDto productDto) {
         Optional<Product> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
         Product productToUpdate = product.map(e -> {
-            e.setDescription(productDto.getDescription());
-            e.setName(productDto.getName());
-            e.setPrice(productDto.getPrice());
-            e.setCategory(this.getCategoryByCategoryId(productDto.getCategoryId()));
-            e.setStockAmount(productDto.getStockAmount());
+            e.setDescription(productDto.description());
+            e.setName(productDto.name());
+            e.setPrice(productDto.price());
+            e.setCategory(this.getCategoryByCategoryId(productDto.categoryId()));
+            e.setStockAmount(productDto.stockAmount());
             return e;
         }).get();
         return mapper.convertEntityToDto(repository.save(productToUpdate));

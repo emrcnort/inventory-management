@@ -39,8 +39,8 @@ public class CategoryService {
     public CategoryDto update(Long id, CategoryDto categoryDto) {
         Optional<Category> category = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
         Category categoryToUpdate = category.map(e -> {
-            e.setDescription(categoryDto.getDescription());
-            e.setName(categoryDto.getName());
+            e.setDescription(categoryDto.description());
+            e.setName(categoryDto.name());
             return e;
         }).get();
         return mapper.convertEntityToDto(repository.save(categoryToUpdate));

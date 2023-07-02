@@ -13,6 +13,7 @@
         <module name="product-service" />
         <module name="config-server" />
         <module name="common-service" />
+        <module name="customer-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
+      <module name="customer-service" options="-parameters" />
       <module name="parent-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="product-service (1)" options="-parameters" />

@@ -6,15 +6,11 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
-public class Product {
+public class Product extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
