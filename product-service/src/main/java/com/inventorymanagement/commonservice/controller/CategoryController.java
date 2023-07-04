@@ -34,4 +34,8 @@ public class CategoryController {
         categoryService.delete(id);
         return ResponseEntity.ok(null);
     }
+    
+    public ResponseEntity mockMethod(Long id) {
+        return null;
+    }
 }
