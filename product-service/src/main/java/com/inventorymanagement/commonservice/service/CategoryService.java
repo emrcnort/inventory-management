@@ -20,9 +20,10 @@ public class CategoryService {
     private final CategoryMapper mapper;
 
     @Transactional
-    public void delete(Long id) {
-        Optional<Category> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
-        repository.deleteById(product.get().getId());
+    public CategoryDto delete(Long id) {
+        Optional<Category> category = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
+        repository.deleteById(category.get().getId());
+        return mapper.convertEntityToDto(category.get());
     }
 
     public CategoryDto findById(Long id) {

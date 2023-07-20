@@ -2,12 +2,11 @@ package com.inventorymanagement.commonservice.controller;
 
 import com.inventorymanagement.commonservice.dto.ProductDto;
 import com.inventorymanagement.commonservice.model.PageableParams;
+import com.inventorymanagement.commonservice.rest.BaseResponse;
 import com.inventorymanagement.commonservice.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,35 +20,35 @@ public class ProductController {
 
     @Operation(summary = "Find Products by id", description = "Finds all Products by category id")
     @GetMapping(path = "/findAllByCategoryId/{categoryId}")
-    public ResponseEntity<List<ProductDto>> findAllByCategoryId(@PathVariable Long categoryId,
-                                                                @RequestParam(defaultValue = "0", required = false) int page,
-                                                                @RequestParam(defaultValue = "5", required = false) int pageSize,
-                                                                @RequestParam(defaultValue = "name", required = false) String sortBy) {
-        return new ResponseEntity<>(productService.findAllByCategoryId(PageableParams.builder()
+    public BaseResponse<List<ProductDto>> findAllByCategoryId(@PathVariable Long categoryId,
+                                                              @RequestParam(defaultValue = "0", required = false) int page,
+                                                              @RequestParam(defaultValue = "5", required = false) int pageSize,
+                                                              @RequestParam(defaultValue = "name", required = false) String sortBy) {
+        List<ProductDto> productDtoList = productService.findAllByCategoryId(PageableParams.builder()
                 .page(page)
                 .pageSize(pageSize)
                 .sortBy(sortBy)
-                .build(), categoryId), HttpStatus.OK);
+                .build(), categoryId);
 
+        return new BaseResponse<>(productDtoList);
     }
 
     @Operation(summary = "Save product", description = "Saves product and returns dto model")
     @PostMapping
-    public ResponseEntity<ProductDto> save(@RequestBody ProductDto product) {
-        return ResponseEntity.ok(productService.save(product));
+    public BaseResponse<ProductDto> save(@RequestBody ProductDto product) {
+        return new BaseResponse(productService.save(product));
     }
 
     @Operation(summary = "Update product", description = "Updates product and returns dto model")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto product) {
-        return ResponseEntity.ok(productService.update(id, product));
+    public BaseResponse<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto product) {
+        return new BaseResponse(productService.update(id, product));
     }
 
     @Operation(summary = "Delete product", description = "Deletes product and returns dto model")
-    @DeleteMapping
-    public ResponseEntity delete(Long id) {
-        productService.delete(id);
-        return ResponseEntity.ok(null);
+    @DeleteMapping("/{id}")
+    public BaseResponse<ProductDto> delete(@PathVariable Long id) {
+        return new BaseResponse(productService.delete(id));
     }
 
 

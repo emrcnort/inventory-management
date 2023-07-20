@@ -56,9 +56,10 @@ public class ProductService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public ProductDto delete(Long id) {
         Optional<Product> product = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
         repository.deleteById(product.get().getId());
+        return mapper.convertEntityToDto(product.get());
     }
 
     private Category getCategoryByCategoryId(Long categoryId) {
