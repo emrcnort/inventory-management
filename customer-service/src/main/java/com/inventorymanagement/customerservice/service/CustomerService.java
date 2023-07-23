@@ -24,9 +24,10 @@ public class CustomerService {
     private final PaymentService paymentService;
 
     @Transactional
-    public void delete(Long id) {
+    public CustomerDto delete(Long id) {
         Optional<Customer> customer = Optional.ofNullable(repository.findById(id).orElseThrow(NotFoundException::new));
         repository.deleteById(customer.get().getId());
+        return mapper.convertEntityToDto(customer.get());
     }
 
     public CustomerDto findById(Long id) {
@@ -60,5 +61,5 @@ public class CustomerService {
         PaymentDto paymentDto = paymentService.findById(paymentId);
         return paymentMapper.convertDtoToEntity(paymentDto);
     }
-    
+
 }

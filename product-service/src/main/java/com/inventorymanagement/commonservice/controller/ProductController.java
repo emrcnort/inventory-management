@@ -1,5 +1,6 @@
 package com.inventorymanagement.commonservice.controller;
 
+import com.inventorymanagement.commonservice.annotations.LoggableMethod;
 import com.inventorymanagement.commonservice.dto.ProductDto;
 import com.inventorymanagement.commonservice.model.PageableParams;
 import com.inventorymanagement.commonservice.rest.BaseResponse;
@@ -20,6 +21,7 @@ public class ProductController {
 
     @Operation(summary = "Find Products by id", description = "Finds all Products by category id")
     @GetMapping(path = "/findAllByCategoryId/{categoryId}")
+    @LoggableMethod
     public BaseResponse<List<ProductDto>> findAllByCategoryId(@PathVariable Long categoryId,
                                                               @RequestParam(defaultValue = "0", required = false) int page,
                                                               @RequestParam(defaultValue = "5", required = false) int pageSize,
@@ -35,18 +37,21 @@ public class ProductController {
 
     @Operation(summary = "Save product", description = "Saves product and returns dto model")
     @PostMapping
+    @LoggableMethod
     public BaseResponse<ProductDto> save(@RequestBody ProductDto product) {
         return new BaseResponse(productService.save(product));
     }
 
     @Operation(summary = "Update product", description = "Updates product and returns dto model")
     @PutMapping("/{id}")
+    @LoggableMethod
     public BaseResponse<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto product) {
         return new BaseResponse(productService.update(id, product));
     }
 
     @Operation(summary = "Delete product", description = "Deletes product and returns dto model")
     @DeleteMapping("/{id}")
+    @LoggableMethod
     public BaseResponse<ProductDto> delete(@PathVariable Long id) {
         return new BaseResponse(productService.delete(id));
     }

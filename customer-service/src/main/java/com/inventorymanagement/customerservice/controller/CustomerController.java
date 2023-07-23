@@ -1,11 +1,11 @@
 package com.inventorymanagement.customerservice.controller;
 
+import com.inventorymanagement.commonservice.rest.BaseResponse;
 import com.inventorymanagement.customerservice.dto.CustomerDto;
 import com.inventorymanagement.customerservice.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,21 +18,20 @@ public class CustomerController {
 
     @Operation(summary = "Save customer", description = "Saves customer and returns dto model")
     @PostMapping
-    public ResponseEntity<CustomerDto> save(@RequestBody CustomerDto customer) {
-        return ResponseEntity.ok(customerService.save(customer));
+    public BaseResponse<CustomerDto> save(@RequestBody CustomerDto customer) {
+        return new BaseResponse(customerService.save(customer));
     }
 
     @Operation(summary = "Update customer", description = "Updates customer and returns dto model")
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto customer) {
-        return ResponseEntity.ok(customerService.update(id, customer));
+    public BaseResponse<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto customer) {
+        return new BaseResponse(customerService.update(id, customer));
     }
 
     @Operation(summary = "Delete customer", description = "Deletes customer and returns dto model")
     @DeleteMapping
-    public ResponseEntity delete(Long id) {
-        customerService.delete(id);
-        return ResponseEntity.ok(null);
+    public BaseResponse<CustomerDto> delete(Long id) {
+        return new BaseResponse(customerService.delete(id));
     }
 
 
