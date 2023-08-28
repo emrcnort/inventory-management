@@ -4,6 +4,7 @@ import com.inventorymanagement.commonservice.annotations.LoggableMethod;
 import com.inventorymanagement.commonservice.dto.ProductDto;
 import com.inventorymanagement.commonservice.model.PageableParams;
 import com.inventorymanagement.commonservice.rest.BaseResponse;
+import com.inventorymanagement.commonservice.rest.SuccessResponse;
 import com.inventorymanagement.commonservice.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,28 +33,28 @@ public class ProductController {
                 .sortBy(sortBy)
                 .build(), categoryId);
 
-        return new BaseResponse<>(productDtoList);
+        return new SuccessResponse<>(productDtoList);
     }
 
     @Operation(summary = "Save product", description = "Saves product and returns dto model")
     @PostMapping
     @LoggableMethod
     public BaseResponse<ProductDto> save(@RequestBody ProductDto product) {
-        return new BaseResponse(productService.save(product));
+        return new SuccessResponse(productService.save(product));
     }
 
     @Operation(summary = "Update product", description = "Updates product and returns dto model")
     @PutMapping("/{id}")
     @LoggableMethod
     public BaseResponse<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto product) {
-        return new BaseResponse(productService.update(id, product));
+        return new SuccessResponse(productService.update(id, product));
     }
 
     @Operation(summary = "Delete product", description = "Deletes product and returns dto model")
     @DeleteMapping("/{id}")
     @LoggableMethod
     public BaseResponse<ProductDto> delete(@PathVariable Long id) {
-        return new BaseResponse(productService.delete(id));
+        return new SuccessResponse(productService.delete(id));
     }
 
 

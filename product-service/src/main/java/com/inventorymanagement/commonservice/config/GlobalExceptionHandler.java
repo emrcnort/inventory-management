@@ -2,6 +2,7 @@ package com.inventorymanagement.commonservice.config;
 
 import com.inventorymanagement.commonservice.exceptions.NotFoundException;
 import com.inventorymanagement.commonservice.rest.BaseResponse;
+import com.inventorymanagement.commonservice.rest.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +18,6 @@ public class GlobalExceptionHandler {
     }
 
     private BaseResponse generateBaseResponse(String errorMessage) {
-        return new BaseResponse<>(null, errorMessage, Boolean.FALSE);
+        return new ErrorResponse(new Object(), errorMessage);
     }
 }

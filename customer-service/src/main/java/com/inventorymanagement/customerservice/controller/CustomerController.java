@@ -1,6 +1,7 @@
 package com.inventorymanagement.customerservice.controller;
 
 import com.inventorymanagement.commonservice.rest.BaseResponse;
+import com.inventorymanagement.commonservice.rest.SuccessResponse;
 import com.inventorymanagement.customerservice.dto.CustomerDto;
 import com.inventorymanagement.customerservice.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,19 +20,19 @@ public class CustomerController {
     @Operation(summary = "Save customer", description = "Saves customer and returns dto model")
     @PostMapping
     public BaseResponse<CustomerDto> save(@RequestBody CustomerDto customer) {
-        return new BaseResponse(customerService.save(customer));
+        return new SuccessResponse<>(customerService.save(customer));
     }
 
     @Operation(summary = "Update customer", description = "Updates customer and returns dto model")
     @PutMapping("/{id}")
     public BaseResponse<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto customer) {
-        return new BaseResponse(customerService.update(id, customer));
+        return new SuccessResponse<>(customerService.update(id, customer));
     }
 
     @Operation(summary = "Delete customer", description = "Deletes customer and returns dto model")
     @DeleteMapping
     public BaseResponse<CustomerDto> delete(Long id) {
-        return new BaseResponse(customerService.delete(id));
+        return new SuccessResponse(customerService.delete(id));
     }
 
 

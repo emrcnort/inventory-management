@@ -2,6 +2,7 @@ package com.inventorymanagement.commonservice.controller;
 
 import com.inventorymanagement.commonservice.dto.CategoryDto;
 import com.inventorymanagement.commonservice.rest.BaseResponse;
+import com.inventorymanagement.commonservice.rest.SuccessResponse;
 import com.inventorymanagement.commonservice.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,18 +20,18 @@ public class CategoryController {
     @Operation(summary = "Save category", description = "Saves category and returns dto model")
     @PostMapping
     public BaseResponse<CategoryDto> save(@RequestBody CategoryDto category) {
-        return new BaseResponse<CategoryDto>(categoryService.save(category));
+        return new SuccessResponse<CategoryDto>(categoryService.save(category));
     }
 
     @Operation(summary = "Update category", description = "Updates category and returns dto model")
     @PutMapping("/{id}")
     public BaseResponse<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto category) {
-        return new BaseResponse<CategoryDto>(categoryService.update(id, category));
+        return new SuccessResponse<CategoryDto>(categoryService.update(id, category));
     }
 
     @Operation(summary = "Delete category", description = "Deletes category and returns dto model")
     @DeleteMapping("/{id}")
     public BaseResponse<CategoryDto> delete(@PathVariable Long id) {
-        return new BaseResponse<CategoryDto>(categoryService.delete(id));
+        return new SuccessResponse<CategoryDto>(categoryService.delete(id));
     }
 }
